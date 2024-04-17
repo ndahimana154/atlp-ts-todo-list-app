@@ -2,6 +2,8 @@ import mongoose, { mongo } from "mongoose";
 import { Request, Response } from "express";
 import tasksModel from "../models/tasksModel";
 
+
+
 // Post Task
 const postTask = async (req: Request, res: Response) => {
   const data = new tasksModel({
@@ -10,7 +12,7 @@ const postTask = async (req: Request, res: Response) => {
   });
   try {
     const dataToSave = await data.save();
-    res.status(200).json({ dataToSave });
+    res.status(201).json({ dataToSave });
   } catch (error) {
     console.error("Failed to POST task:", error);
     res.status(500).json({ error: error });
@@ -20,7 +22,7 @@ const postTask = async (req: Request, res: Response) => {
 // Get all tasks
 const getTasks = async (req: Request, res: Response) => {
   try {
-    const data = await tasksModel.find().sort({ title: 1 });
+    const data = await tasksModel.find().sort({ createdAt: 1 });
     if (data.length === 0) {
       return res.status(404).json({ error: "No data found." });
     }

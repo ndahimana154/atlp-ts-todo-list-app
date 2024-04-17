@@ -8,11 +8,14 @@ import {
 } from "../controllers/tasksController";
 const router = express.Router();
 
+// Import
+import  verifyToken  from "../middlewares/verifyToken";
+
 // Post tasks
 router.post("/", postTask);
 
 // Get tasks
-router.get("/", getTasks);
+router.get("/", verifyToken, getTasks);
 
 // Get Task
 router.get("/:id", getTask);

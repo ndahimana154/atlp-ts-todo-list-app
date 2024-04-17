@@ -2,9 +2,11 @@ import express, { Express } from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
+import cors from "cors";
 
 // Import Routes
-import tasksRoutes from "./routes/tasks";
+import tasksRoutes from "./routes/tasksRoute";
+import usersRoutes from "./routes/usersRoute";
 
 dotenv.config();
 
@@ -23,9 +25,15 @@ mongoose
   )
   .catch((error) => console.log("Mongo DB Connection Error:", error));
 
-// Allow to pass Body&Form datas
+// Middlewares: Allow to pass Body&Form datas
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use((req, res, next) => {
+  console.log(req.method, ": ", req.path);
+  next();
+});
 
 // Routes
 app.use("/api/tasks", tasksRoutes);
+app.use("/api/users", usersRoutes);
