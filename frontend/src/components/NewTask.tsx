@@ -19,7 +19,7 @@ function NewTask() {
     const json = await response.json();
     if (response.status !== 201) {
       setMsg("Task is not added");
-      console.log(response.status)
+      console.log(response.status);
     } else {
       setTitle("");
       setDescription("");
@@ -40,6 +40,7 @@ function NewTask() {
             type="text"
             onChange={(e) => setTitle(e.target.value)}
             value={title}
+            required
           />
         </p>
         <p>
@@ -47,11 +48,11 @@ function NewTask() {
           <textarea
             onChange={(e) => setDescription(e.target.value)}
             value={description}
+            required
           ></textarea>
         </p>
-        
-          <button>Create task</button>
 
+        <button>Create task</button>
       </form>
       {msg && <div className="msg">{msg}</div>}
     </div>

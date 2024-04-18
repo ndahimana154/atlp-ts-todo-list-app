@@ -1,29 +1,24 @@
 import express from "express";
-import {
-  postTask,
-  getTasks,
-  getTask,
-  updateTask,
-  deleteTask,
-} from "../controllers/tasksController";
-const router = express.Router();
+import taskControllers from "../modules/tasks/controller/tasksController";
+
+const tasksRouter = express.Router();
 
 // Import
-import  verifyToken  from "../middlewares/verifyToken";
+import verifyToken from "../middlewares/verifyToken";
 
 // Post tasks
-router.post("/", postTask);
+tasksRouter.post("/", taskControllers.postTask);
 
 // Get tasks
-router.get("/", verifyToken, getTasks);
+tasksRouter.get("/", taskControllers.getTasks);
 
 // Get Task
-router.get("/:id", getTask);
+tasksRouter.get("/:id", taskControllers.getTask);
 
 // updateTask
-router.patch("/:id", updateTask);
+tasksRouter.patch("/:id", taskControllers.updateTask);
 
 // Delete Task
-router.delete("/:id", deleteTask);
+tasksRouter.delete("/:id", taskControllers.deleteTask);
 
-export default router;
+export default tasksRouter;

@@ -1,7 +1,7 @@
 import { Request,Response } from "express";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import usersModel from "../models/usersModel";
+import usersModel from "../database/models/usersModel";
 import { NextFunction } from "express";
 
 dotenv.config();
@@ -21,5 +21,5 @@ const verifyToken = (req:Request, res:Response, next:NextFunction) => {
   }
 };
 
-module.exports = verifyToken;
- 
+export default verifyToken;
+  

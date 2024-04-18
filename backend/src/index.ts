@@ -1,39 +1,25 @@
 import express, { Express } from "express";
 import mongoose from "mongoose";
-import dotenv from "dotenv";
-import bodyParser from "body-parser";
-import cors from "cors";
-
-// Import Routes
-import tasksRoutes from "./routes/tasksRoute";
-import usersRoutes from "./routes/usersRoute";
-
-dotenv.config();
+import router from "./routes";
 
 const app: Express = express();
+const port: number = 3300;
 
-const port: number = process.env.PORT || 3300;
-const mongoUrl: string = process.env.MONGO_URI;
-// Connect DB
+const mongoUrl: string ="mongodb+srv://ndahimana154:GitPAUL123@cluster0.ljwz9hc.mongodb.net/";
+
 mongoose
   .connect(mongoUrl)
-  .then(() =>
-    // Listen to hePORT
-    app.listen(port, () =>
-      console.log(`DB Connected and app running on http://localhost:${port}`)
-    )
-  )
-  .catch((error) => console.log("Mongo DB Connection Error:", error));
+  .then(() => {
+    app.listen(port, () => {
+      console.log(`App running on http://localhost:${port}`);
+    });
+  })
+  .catch((error: any) => {
+    console.error(`Mongo DB error: ${error}`);
+    process.exit(1);
+  });
 
-// Middlewares: Allow to pass Body&Form datas
-app.use(cors());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use((req, res, next) => {
-  console.log(req.method, ": ", req.path);
-  next();
-});
+app.use(express.json());
+app.use("/api", router);
 
-// Routes
-app.use("/api/tasks", tasksRoutes);
-app.use("/api/users", usersRoutes);
+export default app;

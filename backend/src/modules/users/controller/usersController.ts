@@ -1,6 +1,6 @@
 import express, { Express, Request, Response } from "express";
 import bcrypt from "bcrypt";
-import usersModel from "../models/usersModel";
+import usersModel from "../../../database/models/usersModel";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 

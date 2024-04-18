@@ -67,11 +67,14 @@ const Home: React.FC = () => {
   return (
     <div className="tasks">
       {deleteMsg && <p>{deleteMsg}</p>}
+      <div className="title">
+        <div className=""></div>
+      </div>
       <table>
         <thead>
           <tr>
-            <th colSpan={2}>Tasks</th>
-            <th>Actions</th>
+            <th colSpan={2} width="200px">Tasks</th>
+            <th width="40px">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -79,7 +82,7 @@ const Home: React.FC = () => {
             tasks.map((task) => (
               <tr key={task._id}>
                 <td>{task.title}</td>
-                <td>{task.description}</td>
+                <td>| {task.description}</td>
                 <td>
                   <span>
                     <FontAwesomeIcon icon={faEdit} />

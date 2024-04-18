@@ -29,10 +29,10 @@ table {
   width: 100%;
 }
 table thead {
-  background: #f3f3f3;
+  background: #d3d3d3;
 }
 table thead th {
-  padding: 5px;
+  padding: 15px;
 }
 table th {
   text-align: left;
@@ -46,7 +46,7 @@ table span.delete {
   color: rgb(199, 73, 73);
 }
 .msg {
-  border:1px solid #55da55;
+  border: 1px solid #55da55;
   padding: 10px;
   margin-top: 10px;
   margin-bottom: 10px;
@@ -56,12 +56,14 @@ form p {
   display: flex;
   flex-direction: column;
 }
-form p input {
+form p input,
+form p textarea {
   padding: 10px;
   outline: 0;
+  border: 1px solid #1199bb;
+  border-radius: 5px;
 }
 form p input {
-
 }
 form button {
   background: #1199bb;
@@ -69,4 +71,15 @@ form button {
   padding: 10px;
   border: 0;
   border-radius: 10px;
+}
+
+.login {
+  width: 100%;
+}
+.login form {
+  width: 500px;
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
 }
