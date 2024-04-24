@@ -10,6 +10,10 @@ const tasksSchema = new Schema(
       type: String,
       required: true,
     },
+    isCompleted: {
+      type: Boolean,
+      required: false,
+    },
   },
   { timestamps: true }
 );
@@ -17,6 +21,7 @@ const tasksSchema = new Schema(
 interface Tasks extends Document {
   title: string;
   description: string;
+  isCompleted: boolean;
 }
 
 const tasksModel = mongoose.model<Tasks>("tasks", tasksSchema);

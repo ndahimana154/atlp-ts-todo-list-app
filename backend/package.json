@@ -5,6 +5,7 @@
   "main": "src/index.ts",
   "scripts": {
     "dev": "tsnd --respawn ./src/index",
+    "instabul": "istanbul cover _mocha -- --require ts-node/register 'src/modules/**/*.spec.ts' --timeout 300000 --exit    ",
     "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test | coveralls",
     "test": "mocha --require ts-node/register 'src/modules/**/*.spec.ts' --timeout 300000 --exit",
     "coverage": "nyc mocha --require ts-node/register 'src/modules/**/*.spec.ts' --timeout 300000 --exit"
@@ -34,15 +35,22 @@
   "license": "ISC",
   "dependencies": {
     "@types/express": "^4.17.21",
+    "@types/jsonwebtoken": "^9.0.6",
     "@types/node": "^20.12.7",
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
     "express": "^4.19.2",
+    "express-validator": "^7.0.1",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.3.1",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.4.5"
   },
   "devDependencies": {
     "@istanbuljs/nyc-config-typescript": "^1.0.2",
+    "@types/bcrypt": "^5.0.2",
     "@types/chai": "^4.3.14",
+    "@types/cors": "^2.8.17",
     "@types/mocha": "^10.0.6",
     "chai": "^4.4.1",
     "chai-http": "^4.4.0",

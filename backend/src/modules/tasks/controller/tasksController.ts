@@ -1,26 +1,30 @@
-import mongoose, { mongo } from "mongoose";
 import { Request, Response } from "express";
+import taskRepository from "../repository/tasksRepository";
 import tasksModel from "../../../database/models/tasksModel";
 
 // Post Task
 const postTask = async (req: Request, res: Response) => {
-  const data = new tasksModel({
-    title: req.body.title,
-    description: req.body.description,
-  });
+  const title = req.body.title;
+  const description = req.body.description;
+  const isCompleted = false;
+  // console.log( title, description, isCompleted );
   try {
-    const dataToSave = await data.save();
-    res.status(201).json({ status: 201, message: "Success", data });
+    const dataToSave = await taskRepository.createTask(
+      title,
+      description,
+      isCompleted
+    );
+    res.status(201).json({ status: 201, message: "Success", data: dataToSave });
   } catch (error) {
     console.error("Failed to POST task:", error);
-    res.status(500).json({ error: error });
-  }
-};
+    res.status(500).json({ error });
+  } 
+}; 
 
 // Get all tasks
 const getTasks = async (req: Request, res: Response) => {
   try {
-    const data = await tasksModel.find().sort({ createdAt: 1 });
+    const data = await taskRepository.getAllTasks();
     if (data.length === 0) {
       return res.status(404).json({ status: 404, error: "No data found" });
     } else {
@@ -35,11 +39,8 @@ const getTasks = async (req: Request, res: Response) => {
 // Get single task
 const getTask = async (req: Request, res: Response) => {
   const { id } = req.params;
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).json({ status: 400, error: "Invalid ID" });
-  }
   try {
-    const data = await tasksModel.findById(id);
+    const data = await taskRepository.getTaskById(id);
     if (!data) {
       return res.status(404).json({ status: 404, error: "Not found" });
     }
@@ -53,51 +54,66 @@ const getTask = async (req: Request, res: Response) => {
 // Update Task
 const updateTask = async (req: Request, res: Response) => {
   const { id } = req.params;
-
-  // Check if the provided task ID is valid
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).json({ error: "Invalid Task ID" });
-  }
-
   try {
-    const updatedTaskData = req.body; // Extract updated task data from request body
-
-    // Specify options to return the updated document
-    const options = { new: true };
-
-    // Find the task by ID and update it with the new data
-    const updatedTask = await tasksModel.findByIdAndUpdate(id, updatedTaskData, options);
-
-    // If no task was found with the provided ID, return a 404 error
+    const updatedTaskData = req.body;
+    const updatedTask = await taskRepository.updateTaskById(
+      id,
+      updatedTaskData
+    );
     if (!updatedTask) {
-      return res.status(404).json({ error: "Task not found" });
+      return res.status(404).json({ status: 404, error: "Task not found" });
     }
-
-    // If the task was successfully updated, respond with the updated task data
-    res.status(200).json({ status: 200, message: "Success", result: updatedTask });
+    res
+      .status(200)
+      .json({ status: 200, message: "Success", result: updatedTask });
   } catch (error) {
-    // If an error occurs during the update operation, return a 500 error
     console.error("Failed to UPDATE task:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
 
+// const markCompleted = async (req: Request, res: Response) => {
+//   const { id } = req.params;
+
+//   try {
+//     // Retrieve the task document from the database
+//     const task = await tasksModel.findById(id);
+
+//     // Check if the task exists
+//     if (!task) {
+//       return res.status(404).json({ status: 404, error: "Task not found" });
+//     }
+
+//     // Toggle the isCompleted property
+//     task.isCompleted = !task.isCompleted;
+
+//     // Save the updated task document
+//     const markedTask = await task.save();
+
+//     // If the task is successfully updated, return it in the response
+//     res.status(200).json({
+//       status: 200,
+//       message: "Task marked as completed",
+//       data: markedTask,
+//     });
+//   } catch (error) {
+//     console.error("Failed to mark the task as completed:", error);
+//     res.status(500).json({ error: "Internal server error" });
+//   }
+// };
 
 // Delete Task
 const deleteTask = async (req: Request, res: Response) => {
   const { id } = req.params;
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).json({ error: "Invalid Task ID" });
-  }
   try {
-    const data = await tasksModel.findByIdAndDelete(id);
+    const data = await taskRepository.deleteTaskById(id);
     if (!data) {
-      return res.status(404).json({ error: "Task not found" });
+      return res.status(404).json({ status: 404, error: "Task not found" });
     }
-    res.status(200).json({ data });
+    res.status(200).json({ status: 200, message: "Success", data });
   } catch (error) {
     console.error("Failed to DELETE task:", error);
-    res.status(500).json({ error: error });
+    res.status(500).json({ error });
   }
 };
 
@@ -106,5 +122,7 @@ export default {
   getTasks,
   getTask,
   updateTask,
+  // markCompleted,
   deleteTask,
 };
+ 

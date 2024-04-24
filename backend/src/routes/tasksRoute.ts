@@ -21,4 +21,7 @@ tasksRouter.patch("/:id", taskControllers.updateTask);
 // Delete Task
 tasksRouter.delete("/:id", taskControllers.deleteTask);
 
+// Mark completed
+// tasksRouter.patch("/mark/:id", taskControllers.markCompleted);
+
 export default tasksRouter;
