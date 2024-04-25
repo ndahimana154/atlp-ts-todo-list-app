@@ -1,13 +1,14 @@
 import express from "express";
 import taskControllers from "../modules/tasks/controller/tasksController";
 
+
 const tasksRouter = express.Router();
 
 // Import
 import verifyToken from "../middlewares/verifyToken";
 
 // Post tasks
-tasksRouter.post("/", taskControllers.postTask);
+tasksRouter.post("/",verifyToken, taskControllers.postTask);
 
 // Get tasks
 tasksRouter.get("/", taskControllers.getTasks);

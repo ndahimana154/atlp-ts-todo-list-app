@@ -5,7 +5,7 @@ const handleSubmit = async (e) => {
   
     const task = { title, description };
   
-    const response = await fetch("http://localhost:3300/api/tasks", {
+    const response = await fetch("http://localhost:3302/api/tasks", {
       method: "POST",
       body: JSON.stringify(task),
       headers: {

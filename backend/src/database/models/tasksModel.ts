@@ -1,5 +1,5 @@
 import mongoose, { Document, Schema } from "mongoose";
-
+import usersModel from "./usersModel";
 const tasksSchema = new Schema(
   {
     title: {
@@ -8,6 +8,11 @@ const tasksSchema = new Schema(
     },
     description: {
       type: String,
+      required: true,
+    },
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: "User", // Reference to the user model
       required: true,
     },
     isCompleted: {

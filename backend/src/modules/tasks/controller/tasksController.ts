@@ -2,8 +2,12 @@ import { Request, Response } from "express";
 import taskRepository from "../repository/tasksRepository";
 import tasksModel from "../../../database/models/tasksModel";
 
+
+
 // Post Task
 const postTask = async (req: Request, res: Response) => {
+  const user:Request = req.user;
+  console.log(user);
   const title = req.body.title;
   const description = req.body.description;
   const isCompleted = false;
@@ -12,14 +16,15 @@ const postTask = async (req: Request, res: Response) => {
     const dataToSave = await taskRepository.createTask(
       title,
       description,
+      user,
       isCompleted
     );
     res.status(201).json({ status: 201, message: "Success", data: dataToSave });
   } catch (error) {
     console.error("Failed to POST task:", error);
     res.status(500).json({ error });
-  } 
-}; 
+  }
+};
 
 // Get all tasks
 const getTasks = async (req: Request, res: Response) => {
@@ -125,4 +130,3 @@ export default {
   // markCompleted,
   deleteTask,
 };
- 

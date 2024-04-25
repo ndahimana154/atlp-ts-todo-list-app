@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/index.css" />
+    <title>Login</title>
+  </head>
+  <body>
+    <div class="container">
+      <form id="loginForm" class="login-form">
+        <h1>Sign into your account</h1>
+        <p>
+          <label for="username">Username</label>
+          <input type="text" id="username" required />
+        </p>
+        <p>
+          <label for="password">Password</label>
+          <input type="password" id="password" required />
+        </p>
+        <p>
+          <button type="submit">Login</button>
+        </p>
+        <p>Don't have an account? <a href="/signup">Signup</a></p>
+      </form>
+    </div>
+    <script>
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", async function (event) {
+          event.preventDefault();
+
+          const username = document.getElementById("username").value;
+          const password = document.getElementById("password").value;
+          const user = { username, password };
+
+          try {
+            const response = await fetch(
+              "http://localhost:3302/api/users/login/",
+              {
+                method: "POST",
+                body: JSON.stringify(user),
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              }
+            );
+
+            const json = await response.json();
+
+            if (response.status === 200) {
+              localStorage.setItem("token", json);
+              alert("Login succeeded!");
+              window.location.href = "./home.html";
+            } else {
+              alert(json.error);
+            }
+          } catch (error) {
+            console.error("Error:", error);
+            alert("An error occurred during login.");
+          }
+        });
+    </script>
+  </body>
+</html>

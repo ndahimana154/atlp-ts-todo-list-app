@@ -16,7 +16,7 @@ const Home: React.FC = () => {
   //   Fetch data
   const fetchTasks = async () => {
     try {
-      const response = await fetch("http://localhost:3300/api/tasks", {
+      const response = await fetch("http://localhost:3302/api/tasks", {
         method: "GET",
       });
 
@@ -40,7 +40,7 @@ const Home: React.FC = () => {
   const handleDelete = async (taskId: string) => {
     try {
       const response = await fetch(
-        `http://localhost:3300/api/tasks/${taskId}`,
+        `http://localhost:3302/api/tasks/${taskId}`,
         {
           method: "DELETE",
         }

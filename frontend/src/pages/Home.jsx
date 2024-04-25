@@ -13,7 +13,7 @@ function Home() {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await fetch("http://localhost:3300/api/tasks", {
+        const response = await fetch("http://localhost:3302/api/tasks", {
           method: "GET",
         });
         if (!response.ok) {
@@ -30,7 +30,7 @@ function Home() {
 
   //   Delete task
   const handleDelete = async (taskId) => {
-    const response = await fetch(`http://localhost:3300/api/tasks/${taskId}`, {
+    const response = await fetch(`http://localhost:3302/api/tasks/${taskId}`, {
       method: "DELETE",
     }).catch((error) => {
       alert(error);

@@ -34,7 +34,7 @@ function Signup() {
         "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one digit, and one special character."
       );
     } else {
-      const response = await fetch("http://localhost:3300/api/users", {
+      const response = await fetch("http://localhost:3302/api/users", {
         method: "POST",
         body: JSON.stringify(user),
         headers: {

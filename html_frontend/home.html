@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/index.css" />
+    <title>Home</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="table">
+        <div class="navbar">
+          <h1>Todo tasks</h1>
+          <div class="btnz">
+            <a href="home.html">Home</a>
+            <a href="new-task.html">New Task</a>
+            <a id="logoutBtn">Logout</a>
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div class="tb">
+          <div class="tb-head">
+            <div class="tk-title">Task title</div>
+            <div class="actions">Actions</div>
+          </div>
+          <div class="tb-body" id="taskList">
+            <!-- Task list will be dynamically populated here -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="./js/scripts.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const logoutBtn = document.getElementById("logoutBtn");
+        logoutBtn.addEventListener("click", function () {
+          localStorage.removeItem("token");
+          window.location.href = "/login";
+        });
+
+        // Fetch tasks from server
+        fetchTasks();
+
+        // Function to fetch tasks
+        async function fetchTasks() {
+          try {
+            const response = await fetch("http://localhost:3302/api/tasks", {
+              method: "GET",
+            });
+            if (!response.ok) {
+              throw new Error("Failed to fetch tasks");
+            }
+            const json = await response.json();
+            renderTasks(json.data);
+          } catch (error) {
+            renderMessage(error.message);
+          }
+        }
+
+        // Function to render tasks
+        function renderTasks(tasks) {
+          const taskList = document.getElementById("taskList");
+          taskList.innerHTML = ""; // Clear previous tasks
+          tasks.forEach((task) => {
+            const taskRow = `
+          <div class="tb-row">
+            <div class="left">
+              <div class="tb-title">${task.title}</div>
+              <div class="tb-desc">| ${task.description}</div>
+            </div>
+            <div class="tb-act">
+              <img src="./images/bin.png" alt="Delete" onclick="handleDelete(${task._id})">
+            </div>
+          </div>
+        `;
+            taskList.innerHTML += taskRow;
+          });
+        }
+
+        // Function to handle task deletion
+        async function handleDelete(taskId) {
+          alert("hgmh gfh");
+          try {
+            const response = await fetch(
+              `http://localhost:3302/api/tasks/${taskId}`,
+              {
+                method: "DELETE",
+              }
+            );
+            if (!response.ok) {
+              throw new Error("Failed to delete task");
+            }
+            alert("Deleted successfully");
+            fetchTasks(); // Fetch tasks again to update the list
+          } catch (error) {
+            alert(error.message);
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

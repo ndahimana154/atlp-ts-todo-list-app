@@ -148,3 +148,13 @@ h1 {
   color: #fff;
   border-radius: 5px;
 }
+
+.navbar {
+  background: #000;
+}
+.table {
+  background: red;
+}
+.table .tb .tb-head {
+  background: #11b174;
+}

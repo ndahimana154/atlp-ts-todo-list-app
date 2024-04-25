@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/index.css" />
+    <title>New Task</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="table">
+        <div class="navbar">
+          <h1>Todo tasks</h1>
+          <div class="btnz">
+            <a href="./home.html">Home</a>
+            <a href="./new-task.html">New Task</a>
+            <a id="logoutBtn">Logout</a>
+          </div>
+        </div>
+        <!-- Navbar component -->
+        <div class="navbar">
+          <!-- Navbar content -->
+        </div>
+
+        <!-- New Task form -->
+        <form id="newTaskForm" class="new-form">
+          <p>
+            <label for="taskTitle">Task title</label>
+            <input type="text" id="taskTitle" required />
+          </p>
+          <p>
+            <label for="description">Description</label>
+            <textarea id="description" required></textarea>
+          </p>
+          <p>
+            <button type="submit">Save</button>
+          </p>
+        </form>
+      </div>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const newTaskForm = document.getElementById("newTaskForm");
+        const token = localStorage.getItem("token");
+        newTaskForm.addEventListener("submit", async function (event) {
+          event.preventDefault();
+
+          const title = document.getElementById("taskTitle").value;
+          const description = document.getElementById("description").value;
+          const task = { title, description };
+
+          try {
+            const response = await fetch("http://localhost:3302/api/tasks", {
+              method: "POST",
+              body: JSON.stringify(task),
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            });
+            const json = await response.json();
+
+            if (response.status === 201) {
+              document.getElementById("taskTitle").value = "";
+              document.getElementById("description").value = "";
+              alert("Task created");
+            } else {
+              alert("Task not created");
+            }
+          } catch (error) {
+            console.error("Error:", error);
+            alert("An error occurred while creating the task.");
+          }
+        });
+      });
+    </script>
+    <script src="./js/scripts.js"></script>
+  </body>
+</html>
