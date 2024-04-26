@@ -4,10 +4,10 @@ import tasksModel from "../../../database/models/tasksModel";
 const createTask = async (
   title: string,
   description: string,
-  user:string,
+  user: string,
   isCompleted: boolean
 ) => {
-  const newTask = new tasksModel({ title, description,user, isCompleted });
+  const newTask = new tasksModel({ title, description, user, isCompleted });
   return newTask.save();
 };
 
@@ -20,7 +20,10 @@ const getAllTasks = async () => {
 const getTaskById = async (id: string) => {
   return tasksModel.findById(id);
 };
-
+// Function to find task by userId
+// const gettaskByUserId = async () => {
+//   return tasksModel.find();
+// };
 // Function to update a task by ID
 const updateTaskById = async (id: string, updatedTaskData: any) => {
   const options = { new: true };
@@ -35,6 +38,7 @@ export default {
   createTask,
   getAllTasks,
   getTaskById,
+  // gettaskByUserId, 
   updateTaskById,
   deleteTaskById,
 };

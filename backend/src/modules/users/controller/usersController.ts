@@ -8,6 +8,8 @@ import {
   findUserByUsername,
 } from "../repository/userRepository";
 import usersModel from "../../../database/models/usersModel";
+import tasksRepository from "../../tasks/repository/tasksRepository";
+import tasksModel from "../../../database/models/tasksModel";
 
 // Variables
 const secretKey = "ofierhjfuionvdfiojvadfiovfviofdjvdfvddvsiosdjai.2122cds";
@@ -73,4 +75,25 @@ const loginUser = async (req: Request, res: Response) => {
   }
 };
 
-export { postUser, getUsers, loginUser };
+
+
+
+// Gettasks by username
+const getTaskByUserName = async (req: any, res: Response) => {
+  const user: string = req.user.userId;
+  try {
+    const data = await tasksModel.find({user});
+    if (!data) {
+      return res.status(404).json({ status: 404, error: "No data found" });
+    } else {
+      res.status(200).json({ status: 200, message: "Success", data });
+    }
+  } catch (error) {
+    console.error("Failed to get tasks:", error);
+    res.status(500).json({ status: 500, error: JSON.stringify(error) });
+  }
+};
+
+
+
+export { postUser, getUsers, loginUser,getTaskByUserName };

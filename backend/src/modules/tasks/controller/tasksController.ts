@@ -2,12 +2,9 @@ import { Request, Response } from "express";
 import taskRepository from "../repository/tasksRepository";
 import tasksModel from "../../../database/models/tasksModel";
 
-
-
 // Post Task
-const postTask = async (req: Request, res: Response) => {
-  const user:Request = req.user;
-  console.log(user);
+const postTask = async (req: any, res: Response) => {
+  const user: string = req.user.userId;
   const title = req.body.title;
   const description = req.body.description;
   const isCompleted = false;
@@ -68,6 +65,7 @@ const updateTask = async (req: Request, res: Response) => {
     if (!updatedTask) {
       return res.status(404).json({ status: 404, error: "Task not found" });
     }
+    
     res
       .status(200)
       .json({ status: 200, message: "Success", result: updatedTask });

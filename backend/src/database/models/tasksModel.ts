@@ -11,9 +11,9 @@ const tasksSchema = new Schema(
       required: true,
     },
     user: {
-      type: Schema.Types.ObjectId,
-      ref: "User", // Reference to the user model
-      required: true,
+      type: String,
+      // ref: usersModel, // Reference to the user model
+      required: false,
     },
     isCompleted: {
       type: Boolean,
