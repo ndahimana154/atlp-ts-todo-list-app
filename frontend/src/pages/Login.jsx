@@ -7,7 +7,7 @@ function Login() {
   const handleLogin = async (e) => {
     const user = { username, password };
     e.preventDefault();
-    const response = await fetch("http://localhost:3300/api/users/login/", {
+    const response = await fetch("http://localhost:3302/api/users/login/", {
       method: "POST",
       body: JSON.stringify(user),
       headers: {

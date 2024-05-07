@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/index.css" />
+    <title>Home</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="table">
+        <div class="navbar">
+          <h1>Todo tasks</h1>
+          <div class="btnz">
+            <a href="home.html">Home</a>
+            <a href="new-task.html">New Task</a>
+            <button id="logoutBtn">Logout</button>
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div class="tb">
+          <div class="tb-head">
+            <div class="tk-title">Task title</div>
+            <div class="actions">Actions</div>
+          </div>
+          <div class="tb-body" id="taskList">
+            <!-- Task list will be dynamically populated here -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="./js/scripts.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const logoutBtn = document.getElementById("logoutBtn");
+        logoutBtn.addEventListener("click", function () {
+          localStorage.removeItem("token");
+          window.location.href = "./index.html";
+        });
+
+        
+
+      });
+    </script>
+    <script src="./js/home.js"></script>
+  </body>
+</html>

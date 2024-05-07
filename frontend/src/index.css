@@ -160,3 +160,12 @@ h1 {
   cursor: pointer;
 
 }
+.navbar {
+  background: #000;
+}
+.table {
+  background: red;
+}
+.table .tb .tb-head {
+  background: #11b174;
+}

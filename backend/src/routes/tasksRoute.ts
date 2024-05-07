@@ -16,7 +16,7 @@ tasksRouter.get("/", taskControllers.getTasks);
 tasksRouter.get("/user/:id", taskControllers.getUserTask);
 
 // Get Task
-tasksRouter.get("/:id", taskControllers.getTask);
+tasksRouter.get("/:id", verifyToken, taskControllers.getTask);
 
 // updateTask
 tasksRouter.patch("/:id", taskControllers.updateTask);

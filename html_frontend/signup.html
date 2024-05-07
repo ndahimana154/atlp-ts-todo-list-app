@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/index.css">
+    <title>Signup</title>
+  </head>
+  <body>
+    <div class="container">
+      <form id="signupForm" class="login-form">
+        <h1>Create your account</h1>
+        <div id="errorDisplay"></div>
+        <!-- Error message will be displayed here -->
+        <p>
+          <label for="username">Username</label>
+          <input type="text" id="username" required />
+        </p>
+        <p>
+          <label for="password">Password</label>
+          <input type="password" id="password" required />
+        </p>
+        <p>
+          <label for="retype">Retype password</label>
+          <input type="password" id="retype" />
+        </p>
+        <p>
+          <button type="submit">Signup</button>
+        </p>
+        <p>Already have an account? <a href="./index.html">Login</a></p>
+      </form>
+    </div>
+    <script>
+      document
+        .getElementById("signupForm")
+        .addEventListener("submit", async function (event) {
+          event.preventDefault();
+
+          const username = document.getElementById("username").value;
+          const password = document.getElementById("password").value;
+          const retype = document.getElementById("retype").value;
+          const errorDisplay = document.getElementById("errorDisplay");
+errorDisplay.classList.add("error")
+    
+          if (password !== retype) {
+            errorDisplay.textContent = "Password doesn't match";
+          } else {
+            const isStrongPassword = (password) => {
+              // Define the password criteria (e.g., minimum length, character types)
+              const minLength = 8;
+              const hasUppercase = /[A-Z]/.test(password);
+              const hasLowercase = /[a-z]/.test(password);
+              const hasDigit = /\d/.test(password);
+              const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+              // Check if the password meets the criteria
+              return (
+                password.length >= minLength &&
+                hasUppercase &&
+                hasLowercase &&
+                hasDigit &&
+                hasSpecialChar
+              );
+            };
+
+            if (!isStrongPassword(password)) {
+              errorDisplay.textContent =
+                "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one digit, and one special character.";
+            } else {
+              const user = { username, password };
+              try {
+                const response = await fetch(
+                  "http://localhost:3302/api/users",
+                  {
+                    method: "POST",
+                    body: JSON.stringify(user),
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                  }
+                );
+                const data = await response.json();
+
+                if (response.status === 201) {
+                  document.getElementById("username").value = "";
+                  document.getElementById("password").value = "";
+                  document.getElementById("retype").value = "";
+                  alert("Account created successfully");
+                  window.location.href = "./index.html";
+                } else if (response.status === 400) {
+                  errorDisplay.textContent = data.error;
+                } else {
+                  errorDisplay.textContent = "Failed to create account";
+                }
+              } catch (error) {
+                console.error("Error:", error);
+                errorDisplay.textContent = "An error occurred during signup.";
+              }
+            }
+          }
+        });
+    </script>
+  </body>
+</html>

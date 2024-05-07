@@ -1,5 +1,5 @@
 import mongoose, { Document, Schema } from "mongoose";
-
+import usersModel from "./usersModel";
 const tasksSchema = new Schema(
   {
     title: {
@@ -7,10 +7,6 @@ const tasksSchema = new Schema(
       required: true,
     },
     description: {
-      type: String,
-      required: true,
-    },
-    user: {
       type: String,
       required: true,
     },

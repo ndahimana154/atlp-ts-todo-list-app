@@ -37,6 +37,7 @@ export default {
   createTask,
   getAllTasks,
   getTaskById,
+  // gettaskByUserId, 
   updateTaskById,
   deleteTaskById,getTasksByUser
 };

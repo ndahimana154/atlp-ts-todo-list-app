@@ -1,5 +1,4 @@
 import app from "../../../index";
-
 import chaiHttp from "chai-http";
 import chai, { expect } from "chai";
 import { response } from "express";
@@ -38,6 +37,8 @@ describe("Task API Test Cases", () => {
         expect(response).to.have.status(200);
         expect(response.body).to.be.a("object");
         expect(response.body.message).to.be.a("string");
+        expect(response.body).to.have.property("data");
+        expect(response.body.data).to.be.an("array");
         done(error);
       });
   });
@@ -49,6 +50,7 @@ describe("Task API Test Cases", () => {
         expect(response).to.have.status(200);
         expect(response.body).to.be.a("object");
         expect(response.body.message).to.be.a("string");
+        expect(response.body).to.have.property("data");
         done(error);
       });
   });
@@ -65,6 +67,7 @@ describe("Task API Test Cases", () => {
       .end((error, response) => {
         expect(response).to.have.status(200);
         expect(response.body).to.be.a("object");
+        expect(response.body).to.have.property("result");
         expect(response.body.result).to.be.a("object");
         expect(response.body.result.title).to.equal(newData.title);
         expect(response.body.result.description).to.equal(newData.description);

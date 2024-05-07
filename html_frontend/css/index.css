@@ -1,0 +1,157 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+    font-size: 18px;
+    text-decoration: none;
+  }
+  img {
+    cursor: pointer;
+  }
+  h1 {
+    color: #11b174;
+    font-size: 22px;
+  }
+  button {
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+  }
+  .success {
+    border: 2px solid #49d19d;
+    padding: 5px;
+    border-radius: 5px;
+    color: #49d19d;
+    width: 300px;
+    margin: 10px;
+  }
+  .error {  
+    border: 2px solid #d14949;
+    padding: 5px;
+    border-radius: 5px;
+    color: #d14949;
+    width: 300px;
+    margin: 10px;
+  }
+  .container {
+    background: #7777778e;
+    width: 100vw;
+    height: 100vh;
+  }
+  
+  .login-form {
+    width: 400px;
+    min-height: 300px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    padding: 10px;
+    border-radius: 10px;
+  }
+  .login-form p {
+    margin: 10px;
+  }
+  .login-form p label {
+    display: block;
+  }
+  .login-form p input {
+    padding: 10px;
+    width: 300px;
+    margin-top: 10px;
+    border-radius: 10px;
+    border: 1px solid #11b174;
+    outline: 0;
+  }
+  .login-form p button {
+    padding: 8px;
+    background: #11b174;
+    border: 0;
+    border-radius: 5px;
+    color: #fff;
+  }
+  
+  .btnz {
+    margin: 10px;
+    border-bottom: 2px solid #11b174;
+  }
+  .btnz a {
+    color: blue;
+    padding: 5px;
+    border-radius: 5px;
+  }
+  .table {
+    width: 800px;
+    height: 600px;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    overflow: auto;
+    padding: 10px;
+    border-radius: 10px;
+  }
+  .tb .tb-head {
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    background: #7777773a;
+  }
+  .tb .tb-head .tk-title {
+    flex: 1;
+    font-weight: bold;
+    padding: 5px;
+  }
+  .tb .tb-head .actions {
+    font-weight: bold;
+    padding: 5px;
+  }
+  .tb .tb-body {
+    padding: 5px;
+  }
+  .tb .tb-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+  .tb .tb-row .left {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+  }
+  .tb .tb-row .tb-title {
+    padding-left: 5px;
+  }
+  .tb .tb-row .tb-desc {
+    padding-left: 5px;
+  }
+  .tb .tb-row .tb-act img {
+    width: 30px;
+  }
+  .new-form {
+    margin: 10px;
+  }
+  .new-form p {
+    margin-top: 10px;
+  }
+  .new-form p label {
+    display: block;
+  }
+  .new-form p input,
+  .new-form p textarea {
+    padding: 5px;
+    outline: 0;
+    width: 300px;
+  }
+  
+  .new-form p button {
+    background: blue;
+    padding: 5px;
+    border: 0;
+    color: #fff;
+    border-radius: 5px;
+  }
+  
+
