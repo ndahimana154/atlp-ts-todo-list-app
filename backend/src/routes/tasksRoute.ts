@@ -7,7 +7,7 @@ const tasksRouter = express.Router();
 import verifyToken from "../middlewares/verifyToken";
 
 // Post tasks
-tasksRouter.post("/", taskControllers.postTask);
+tasksRouter.post("/",verifyToken, taskControllers.postTask);
 
 // Get tasks
 tasksRouter.get("/", taskControllers.getTasks);

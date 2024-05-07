@@ -12,7 +12,7 @@ function Navbar() {
       <div className="btnz">
         <a href="/"> Home </a>
         <a href="/new"> New Task </a>
-        <a onClick={handleLogout}>Logout</a>
+        <a onClick={() => handleLogout}>Logout</a>
       </div>
     </>
   );

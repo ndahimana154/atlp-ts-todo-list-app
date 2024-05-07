@@ -4,9 +4,10 @@ import tasksModel from "../../../database/models/tasksModel";
 const createTask = async (
   title: string,
   description: string,
+  user: string,
   isCompleted: boolean
 ) => {
-  const newTask = new tasksModel({ title, description, isCompleted });
+  const newTask = new tasksModel({ title, description,user, isCompleted });
   return newTask.save();
 };
 

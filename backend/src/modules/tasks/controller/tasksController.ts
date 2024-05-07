@@ -2,24 +2,36 @@ import { Request, Response } from "express";
 import taskRepository from "../repository/tasksRepository";
 import tasksModel from "../../../database/models/tasksModel";
 
+// Define a new interface that extends Express's Request interface
+interface AuthenticatedRequest extends Request {
+  user: {
+    userId: string; // Assuming userId is a string
+    // You can add other properties if needed, like username, email, etc.
+  };
+}
+
 // Post Task
-const postTask = async (req: Request, res: Response) => {
+const postTask = async (req: AuthenticatedRequest, res: Response) => {
   const title = req.body.title;
   const description = req.body.description;
+
+  // Access the userId from the decoded user information attached to req.user
+  const user = req.user.userId; // Assuming userId is the property you're interested in
   const isCompleted = false;
-  // console.log( title, description, isCompleted );
+
   try {
     const dataToSave = await taskRepository.createTask(
       title,
       description,
+      user,
       isCompleted
     );
     res.status(201).json({ status: 201, message: "Success", data: dataToSave });
   } catch (error) {
     console.error("Failed to POST task:", error);
     res.status(500).json({ error });
-  } 
-}; 
+  }
+};
 
 // Get all tasks
 const getTasks = async (req: Request, res: Response) => {
@@ -125,4 +137,3 @@ export default {
   // markCompleted,
   deleteTask,
 };
- 

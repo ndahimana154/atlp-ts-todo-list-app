@@ -10,6 +10,10 @@ const tasksSchema = new Schema(
       type: String,
       required: true,
     },
+    user: {
+      type: String,
+      required: true,
+    },
     isCompleted: {
       type: Boolean,
       required: false,
@@ -21,6 +25,7 @@ const tasksSchema = new Schema(
 interface Tasks extends Document {
   title: string;
   description: string;
+  user: string;
   isCompleted: boolean;
 }
 
