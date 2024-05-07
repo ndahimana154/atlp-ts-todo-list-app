@@ -7,7 +7,7 @@ const createTask = async (
   user: string,
   isCompleted: boolean
 ) => {
-  const newTask = new tasksModel({ title, description,user, isCompleted });
+  const newTask = new tasksModel({ title, description, user, isCompleted });
   return newTask.save();
 };
 
@@ -15,12 +15,14 @@ const createTask = async (
 const getAllTasks = async () => {
   return tasksModel.find().sort({ createdAt: -1 });
 };
-
+const getTasksByUser = async (user: string) => {
+  return tasksModel.find({ user:user });
+};
 // Function to find a task by ID
 const getTaskById = async (id: string) => {
   return tasksModel.findById(id);
 };
-
+   
 // Function to update a task by ID
 const updateTaskById = async (id: string, updatedTaskData: any) => {
   const options = { new: true };
@@ -36,5 +38,5 @@ export default {
   getAllTasks,
   getTaskById,
   updateTaskById,
-  deleteTaskById,
+  deleteTaskById,getTasksByUser
 };

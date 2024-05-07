@@ -3,6 +3,7 @@ import React from "react";
 function Navbar() {
   const handleLogout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("userId");
     window.location.href = "/login";
   };
 
@@ -12,7 +13,7 @@ function Navbar() {
       <div className="btnz">
         <a href="/"> Home </a>
         <a href="/new"> New Task </a>
-        <a onClick={() => handleLogout}>Logout</a>
+        <button className="logout" onClick={ handleLogout}>Logout</button>
       </div>
     </>
   );

@@ -10,7 +10,8 @@ import EditTask from "./pages/EditTask";
 
 function App() {
   var token = localStorage.getItem("token");
-  if (!token) {
+  var userId = localStorage.getItem("userId")
+  if (!token || !userId) {
     var isAuthenticated = false;
   } else {
     var isAuthenticated = true;

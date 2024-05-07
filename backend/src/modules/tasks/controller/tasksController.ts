@@ -11,14 +11,11 @@ interface AuthenticatedRequest extends Request {
 }
 
 // Post Task
-const postTask = async (req: AuthenticatedRequest, res: Response) => {
-  const title = req.body.title;
-  const description = req.body.description;
-
-  // Access the userId from the decoded user information attached to req.user
-  const user = req.user.userId; // Assuming userId is the property you're interested in
+const postTask = async (req: Request, res: Response) => {
+  const { title, description } = req.body;
+  const user = req.params.id;
   const isCompleted = false;
-
+  console.log({ user });
   try {
     const dataToSave = await taskRepository.createTask(
       title,
@@ -48,6 +45,22 @@ const getTasks = async (req: Request, res: Response) => {
   }
 };
 
+// Get task by user
+const getUserTask = async (req: Request, res: Response) => {
+  const user: string | any = req.params.id;
+  // console.log(user)
+  try {
+    const data = await taskRepository.getTasksByUser(user);
+    if (!data) {
+      return res.status(404).json({ status: 404, error: "No data found" });
+    } else {
+      res.status(200).json({ status: 200, message: "Success", data });
+    }
+  } catch (error) {
+    console.error("Failed to get tasks:", error);
+    res.status(500).json({ status: 500, error: JSON.stringify(error) });
+  }
+};
 // Get single task
 const getTask = async (req: Request, res: Response) => {
   const { id } = req.params;
@@ -134,6 +147,7 @@ export default {
   getTasks,
   getTask,
   updateTask,
+  getUserTask,
   // markCompleted,
   deleteTask,
 };

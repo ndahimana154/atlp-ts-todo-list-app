@@ -15,10 +15,12 @@ function Login() {
       },
     });
     const json = await response.json();
+    console.log(json)
     if (response.status === 200) {
       setUsername("");
       setPassword("");
-      localStorage.setItem("token", json);
+      localStorage.setItem("token", json.token);
+      localStorage.setItem("userId", json.userId);
       alert("Login succed!");
       window.location.href = "/";
     } else {

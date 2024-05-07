@@ -69,16 +69,17 @@ h1 {
 
 .btnz {
   margin: 10px;
-  border-bottom: 2px solid #11b174;
+  /* border-bottom: 2px solid #11b174; */
+  margin-bottom: 15px;
 }
 .btnz a {
-  color: blue;
+  color: #ffffff;
   padding: 5px;
   border-radius: 5px;
 }
 .table {
   width: 800px;
-  height: 600px;
+  height: 500px;
   top: 50%;
   left: 50%;
   position: absolute;
@@ -147,4 +148,15 @@ h1 {
   border: 0;
   color: #fff;
   border-radius: 5px;
+}
+
+
+.logout,a {
+  background: #11b174;
+  padding: 5px;
+  border: 0;
+  color: #fff;
+  border-radius: 5px;margin-right: 5px;
+  cursor: pointer;
+
 }

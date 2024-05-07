@@ -7,10 +7,13 @@ const tasksRouter = express.Router();
 import verifyToken from "../middlewares/verifyToken";
 
 // Post tasks
-tasksRouter.post("/",verifyToken, taskControllers.postTask);
+tasksRouter.post("/:id", verifyToken, taskControllers.postTask);
 
 // Get tasks
 tasksRouter.get("/", taskControllers.getTasks);
+
+// Get task by user
+tasksRouter.get("/user/:id", taskControllers.getUserTask);
 
 // Get Task
 tasksRouter.get("/:id", taskControllers.getTask);
